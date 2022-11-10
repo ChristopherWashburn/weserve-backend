@@ -7,7 +7,7 @@ class OrganizationController {
 
         $database = Database::connect();
 
-        $result = $database->query('SELECT * FROM `ws_event`');
+        $result = $database->query('SELECT * FROM `ws_organization`');
         //$result = $database->exec($query);
 
         return $result->fetchAll(PDO::FETCH_ASSOC);
@@ -17,7 +17,7 @@ class OrganizationController {
     public function getAction() {
         $database = Database::connect();
 
-        $result = $database->query('SELECT * FROM `ws_event` WHERE TUID = '.$_GET['eventId']);
+        $result = $database->query('SELECT * FROM `ws_organization` WHERE TUID = '.$_GET['organizationID']);
         //$result = $database->exec($query);
 
         return $result->fetch(PDO::FETCH_ASSOC);
@@ -31,7 +31,7 @@ class OrganizationController {
 
         $database = Database::connect();
 
-        $database->query('INSERT INTO `ws_event` (name, description) 
+        $database->query('INSERT INTO `ws_organization` (name, description, email, password) 
                                     VALUES ("'.$name.'", "'.$description.'", "'.$email.'", "'.$password.'")');
 
         return [

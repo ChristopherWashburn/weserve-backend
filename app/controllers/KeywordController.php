@@ -2,12 +2,12 @@
 
 include __DIR__.'/../../library/Database.php';
 
-class EventController {
+class KeywordController {
     public function listAction() {
 
         $database = Database::connect();
 
-        $result = $database->query('SELECT * FROM `ws_event`');
+        $result = $database->query('SELECT * FROM `ws_keyword`');
         //$result = $database->exec($query);
 
         return $result->fetchAll(PDO::FETCH_ASSOC);
@@ -17,26 +17,22 @@ class EventController {
     public function getAction() {
         $database = Database::connect();
 
-        $result = $database->query('SELECT * FROM `ws_event` WHERE TUID = '.$_GET['eventId']);
+        $result = $database->query('SELECT * FROM `ws_keyword` WHERE TUID = '.$_GET['TUID']);
         //$result = $database->exec($query);
 
         return $result->fetch(PDO::FETCH_ASSOC);
     }
 
     public function createAction() {
-        $eventName = $_POST['name'];
-        $address = $_POST['address'];
-        $description = $_POST['description'];
+        $keyword = $_POST['keyword'];
 
         $database = Database::connect();
 
-        $database->query('INSERT INTO `ws_event` (name, address, description) VALUES ("'.$eventName.'", "'.$address.'", "'.$description.'")');
+        $database->query('INSERT INTO `ws_keyword` (keyword) VALUES ("'.$keyword.'"');
 
         return [
             'id' => $database->lastInsertId(),
-            'name' => $eventName,
-            'address' => $address,
-            'description' => $description,
+            'keyword' => $keyword
         ];
     }
 }
