@@ -31,6 +31,8 @@ class VolunteerController {
         $username = $_POST['username'];
         $password = $_POST['password'];
 
+
+
         $database = Database::connect();
 
         $database->query('INSERT INTO `ws_person` (name, description) 

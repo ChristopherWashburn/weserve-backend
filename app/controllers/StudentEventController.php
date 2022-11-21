@@ -7,7 +7,9 @@ class StudentEventController {
 
         $database = Database::connect();
 
-        $result = $database->query('SELECT * FROM `ws_student_event`');
+        $result = $database->query('select CONCAT(p.firstname, " ", p.lastname) name, e.name FROM ws_student_event se 
+                                            INNER JOIN ws_event e on se.event_id = e.TUID 
+                                            INNER JOIN ws_person p on se.student_id = p.TUID');
         //$result = $database->exec($query);
 
         return $result->fetchAll(PDO::FETCH_ASSOC);
@@ -17,7 +19,10 @@ class StudentEventController {
     public function getAction() {
         $database = Database::connect();
 
-        $result = $database->query('SELECT * FROM `ws_student_event` WHERE event_id = '.$_GET['eventID'] ."AND student_id = " .$_GET['studentID']);
+        $result = $database->query('select CONCAT(p.firstname, " ", p.lastname) name, e.name FROM ws_student_event se 
+                                            INNER JOIN ws_event e on se.event_id = e.TUID 
+                                            INNER JOIN ws_person p on se.student_id = p.TUID'.
+                                            $_GET['eventID'] ."AND student_id = " .$_GET['studentID']);
         //$result = $database->exec($query);
 
         return $result->fetch(PDO::FETCH_ASSOC);
